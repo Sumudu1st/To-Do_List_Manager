@@ -9,13 +9,32 @@ public class Task {
     private String description;
     private Date dueDate;
     private boolean status;
+    private int priority;
 
-    public Task(String title, String description, Date dueDate) {
+    public Task(String title, String description, Date dueDate, int priority) {
         this.id = counter++;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.status = false;
+        this.priority = priority;
+    }
+
+    // Getter and setter for priority
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    // Edit task details
+    public void editTask(String title, String description, Date dueDate, int priority) {
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.priority = priority;
     }
 
     public int getId() {

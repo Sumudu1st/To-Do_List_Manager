@@ -17,13 +17,14 @@ public class ToDoListDemo {
             System.out.println("4. List all tasks");
             System.out.println("5. List completed tasks");
             System.out.println("6. List tasks due today");
-            System.out.println("7. Exit");
+            System.out.println("7. Edit a task");
+            System.out.println("8. Sort tasks by due date");
+            System.out.println("9. Sort tasks by priority");
+            System.out.println("10. Sort tasks by title");
+            System.out.println("11. Exit");
 
             int choice = scanner.nextInt();
-
-
             scanner.nextLine();
-
 
             switch (choice) {
                 case 1:
@@ -33,15 +34,15 @@ public class ToDoListDemo {
                     System.out.println("Enter the description of the task:");
                     String description = scanner.nextLine();
 
-                    System.out.println("Enter the due date of the task (yyyy-mm-dd):");
-                    String dueDate = scanner.nextLine();
+                    System.out.println("Enter the due date of the task (yyyy-MM-dd):");
+                    String dueDateStr = scanner.nextLine();
+                    Date dueDate = new Date(dueDateStr);
 
-                    Date dueDateObj = new Date(dueDate);
+                    System.out.println("Enter the priority of the task (an integer):");
+                    int priority = scanner.nextInt();
 
-                    Task task = new Task(title, description, dueDateObj);
-
+                    Task task = new Task(title, description, dueDate, priority);
                     taskList.addTask(task);
-
                     break;
                 case 2:
                     System.out.println("Enter the ID of the task to be removed:");
@@ -96,6 +97,46 @@ public class ToDoListDemo {
                     }
                     break;
                 case 7:
+                System.out.println("Enter the ID of the task to edit:");
+                int editId = scanner.nextInt();
+                Task taskToEdit = taskList.getTaskById(editId);
+
+                if (taskToEdit != null) {
+                    System.out.println("Enter the new title:");
+                    String newTitle = scanner.next();
+
+                    System.out.println("Enter the new description:");
+                    String newDescription = scanner.next();
+
+                    System.out.println("Enter the new due date (yyyy-MM-dd):");
+                    String newDueDateStr = scanner.next();
+                    Date newDueDate = new Date(newDueDateStr);
+
+                    System.out.println("Enter the new priority (an integer):");
+                    int newPriority = scanner.nextInt();
+
+                    taskToEdit.editTask(newTitle, newDescription, newDueDate, newPriority);
+                    System.out.println("Task edited successfully.");
+                } else {
+                    System.out.println("Task with the given ID does not exist.");
+                }
+                break;
+                case 8:
+                    // Sort tasks by due date
+                    taskList.sortTasksByDueDate();
+                    System.out.println("Tasks sorted by due date.");
+                    break;
+                case 9:
+                    // Sort tasks by priority
+                    taskList.sortTasksByPriority();
+                    System.out.println("Tasks sorted by priority.");
+                    break;
+                case 10:
+                    // Sort tasks by title
+                    taskList.sortTasksByTitle();
+                    System.out.println("Tasks sorted by title.");
+                    break;
+                case 11:
                     shouldContinue = false;
                     break;
                 default:

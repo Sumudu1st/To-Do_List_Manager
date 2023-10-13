@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Date;
 
@@ -23,7 +24,7 @@ public class TaskList {
 
     public List<Task> getCompletedTasks() {
         return this.tasks.stream()
-                .filter(task -> task.isStatus())
+                .filter(Task::isStatus)
                 .collect(java.util.stream.Collectors.toList());
     }
 
@@ -45,6 +46,15 @@ public class TaskList {
         task.setStatus(true);
     }
 
+    public void sortTasksByDueDate() {
+        Collections.sort(tasks, (t1, t2) -> t1.getDueDate().compareTo(t2.getDueDate()));
+    }
+
+    public void sortTasksByPriority() {
+        Collections.sort(tasks, (t1, t2) -> Integer.compare(t1.getPriority(), t2.getPriority()));
+    }
+
+    public void sortTasksByTitle() {
+        Collections.sort(tasks, (t1, t2) -> t1.getTitle().compareTo(t2.getTitle()));
+    }
 }
-
-
